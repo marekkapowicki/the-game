@@ -2,7 +2,7 @@ package pl.marekk.game.application;
 
 import javaslang.control.Try;
 import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import pl.marekk.game.infrastracture.ConsoleSupport;
@@ -16,16 +16,17 @@ import static java.util.stream.Collectors.toList;
 
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 class Menu {
 
+    ConsoleSupport consoleSupport;
     static Menu create() {
-        log.info("{}", getCommands());
-        return new Menu();
+        return new Menu(new ConsoleSupport());
     }
 
     boolean play() {
-        MenuCommand command = Try.of(() -> MenuCommand.from(ConsoleSupport.takeChar()))
+        log.info("{}", getCommands());
+        MenuCommand command = Try.of(() -> MenuCommand.from(consoleSupport.takeChar()))
                 .getOrElse(MenuCommand.UNKNOWN);
         return command.action.get();
     }
@@ -37,7 +38,7 @@ class Menu {
                 .collect(toList());
     }
 
-    private enum MenuCommand {
+    enum MenuCommand {
         START('s', GameFlow::play), QUIT('q', GameFlow::end), UNKNOWN('u', GameFlow::wrongCommand);
 
         private char value;
@@ -52,7 +53,7 @@ class Menu {
             return Arrays.stream(MenuCommand.values())
                     .filter(it -> key == it.getValue())
                     .findFirst()
-                    .orElseThrow(() -> new IllegalStateException("command not found"));
+                    .orElseGet(() -> UNKNOWN);
         }
 
         public char getValue() {

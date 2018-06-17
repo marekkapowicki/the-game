@@ -1,16 +1,15 @@
 package pl.marekk.game.infrastracture;
 
-import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.util.Scanner;
 
 import static pl.marekk.game.infrastracture.Exceptions.illegalState;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class ConsoleSupport {
 
-    public static char takeChar() {
+    public char takeChar() {
         Scanner input = new Scanner(System.in);
         if (input.hasNext()) {
             return input.next().charAt(0);

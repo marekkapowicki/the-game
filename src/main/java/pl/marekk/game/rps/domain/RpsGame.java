@@ -14,7 +14,7 @@ import static pl.marekk.game.RoundResult.DRAW;
 @AllArgsConstructor(staticName = "of")
 public class RpsGame implements Game {
 
-    RoundCommandSupplier roundSupplier;
+    RoundCreateCommandSupplier roundSupplier;
 
     @Override
     public GameResult play() {

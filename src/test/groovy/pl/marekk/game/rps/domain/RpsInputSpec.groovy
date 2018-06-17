@@ -1,6 +1,7 @@
 package pl.marekk.game.rps.domain
 
 import pl.marekk.game.RoundResult
+import pl.marekk.game.infrastracture.Exceptions
 import spock.lang.Specification
 
 import static pl.marekk.game.RoundResult.*
@@ -42,4 +43,26 @@ class RpsInputSpec extends Specification {
             SCISSOR || LOST
             PAPER   || DRAW
     }
+
+    def "create instance from valid number: #number"() {
+        when:
+            RpsInput result = fromOrdinal(number)
+        then:
+            noExceptionThrown()
+        and:
+            result
+        where:
+            number << [0, 1, 2]
+    }
+
+    def "throw exception during creation instance from wrong number: #number"() {
+        when:
+            RpsInput result = fromOrdinal(number)
+        then:
+            RuntimeException ex = thrown()
+            ex.class == Exceptions.illegalState('').get().class
+        where:
+            number << [ 10, 4, -1]
+    }
 }
+
