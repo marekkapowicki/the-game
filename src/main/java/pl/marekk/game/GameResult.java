@@ -1,4 +1,5 @@
 package pl.marekk.game;
 
-public interface GameResult {
+public enum  GameResult {
+    WIN, LOST;
 }

@@ -1,7 +1,26 @@
 package pl.marekk.game.rps.domain;
 
-class RpsGame extends TwoPlayersGame<RpsInput> {
-    RpsGame(RpsInput playerOne, RpsInput playerTwo) {
-        super(playerOne, playerTwo);
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import pl.marekk.game.Game;
+import pl.marekk.game.GameResult;
+import pl.marekk.game.RoundResult;
+
+import static pl.marekk.game.RoundResult.DRAW;
+
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@AllArgsConstructor(staticName = "of")
+public class RpsGame implements Game {
+
+    RoundCommandSupplier roundSupplier;
+
+    @Override
+    public GameResult play() {
+        RoundResult roundResult = null;
+        while(roundResult == null ||  DRAW == roundResult) {
+            roundResult= Round.rpsRound(roundSupplier.get()).play();
+        }
+        return roundResult.toGameResult();
     }
 }

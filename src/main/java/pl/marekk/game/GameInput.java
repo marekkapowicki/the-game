@@ -2,5 +2,5 @@ package pl.marekk.game;
 
 @FunctionalInterface
 public interface GameInput {
-    GameResult playWith(GameInput parameter);
+    RoundResult playWith(GameInput parameter);
 }

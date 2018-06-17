@@ -16,7 +16,7 @@ public class ConsoleSupport {
             return input.next().charAt(0);
         }
         input.close();
-        throw illegalState("some issue with console");
+        throw illegalState("some issue with console").get();
 
     }
 }

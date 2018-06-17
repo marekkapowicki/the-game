@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static java.util.stream.Collectors.reducing;
 import static java.util.stream.Collectors.toList;
 
 
@@ -25,25 +24,26 @@ class Menu {
         return new Menu();
     }
 
-    void play() {
-        Try.of(() -> MenuCommand.from(ConsoleSupport.takeChar()))
-                .onSuccess(command -> command.action.get())
-                .onFailure(GameFlow::wrongCommand);
+    boolean play() {
+        MenuCommand command = Try.of(() -> MenuCommand.from(ConsoleSupport.takeChar()))
+                .getOrElse(MenuCommand.UNKNOWN);
+        return command.action.get();
     }
 
     private static List<String> getCommands() {
         return Arrays.stream(MenuCommand.values())
+                .filter(command -> !command.equals(MenuCommand.UNKNOWN))
                 .map(MenuCommand::toString)
                 .collect(toList());
     }
 
     private enum MenuCommand {
-        START('s', GameFlow::play), QUIT('q', GameFlow::end);
+        START('s', GameFlow::play), QUIT('q', GameFlow::end), UNKNOWN('u', GameFlow::wrongCommand);
 
         private char value;
-        private Supplier<String> action;
+        private Supplier<Boolean> action;
 
-        MenuCommand(char value, Supplier<String> action) {
+        MenuCommand(char value, Supplier<Boolean> action) {
             this.value = value;
             this.action = action;
         }
