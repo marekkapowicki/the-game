@@ -30,8 +30,9 @@ public class ConsoleRoundCommandSupplier implements RoundCommandSupplier {
     public CreateRoundCommand get() {
         log.info("{}", getInput());
         counter.increment();
-        Integer playerOneOrdinal = Try.of(() -> getNumericValue(ConsoleSupport.takeChar()))
-                .getOrElseThrow(() -> Exceptions.illegalState("wrong value").get());
+        Integer playerOneOrdinal =
+                Try.of(() -> getNumericValue(ConsoleSupport.takeChar()))
+                        .getOrElseThrow(() -> Exceptions.illegalState("wrong value").get());
 
         return CreateRoundCommand.of(counter.intValue(), RpsInput.fromOrdinal(playerOneOrdinal), RpsInput.random());
     }
