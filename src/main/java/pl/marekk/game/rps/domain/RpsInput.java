@@ -52,8 +52,7 @@ public enum RpsInput implements GameInput {
         return values()[ordinal];
     }
 
-    @Override
-    public String toString() {
+    public String print() {
         return ordinal() + "-" + name();
     }
 }

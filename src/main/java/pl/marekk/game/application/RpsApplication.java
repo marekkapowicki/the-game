@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 public class RpsApplication {
     public static void main(String[] args) {
 
-        Menu.create().play();
+        while (true) {
+            Menu.create().play();
+        }
     }
 }

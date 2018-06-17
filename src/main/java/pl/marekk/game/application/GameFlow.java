@@ -25,7 +25,6 @@ final class GameFlow {
         return "";
     }
 
-
     static void wrongCommand(Throwable e) {
         log.error("wrong command", e);
         GameFlow.end();
@@ -33,12 +32,13 @@ final class GameFlow {
 
     static String end() {
         log.info("game is over");
+        System.exit(1);
         return "";
     }
 
     private static List<String> getInput() {
         return Arrays.stream(RpsInput.values())
-                .map(RpsInput::toString)
+                .map(RpsInput::print)
                 .collect(toList());
     }
 }
