@@ -8,7 +8,6 @@ public class RpsApplication {
 
         final Menu menu = Menu.create();
         while (menu.play()) {
-            ;
         }
     }
 }

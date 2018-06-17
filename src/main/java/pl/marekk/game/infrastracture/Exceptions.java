@@ -10,7 +10,6 @@ import java.util.function.Supplier;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Exceptions {
     public static Supplier<RuntimeException> illegalState(String message) {
-        log.error("game is now in illegal state: {}", message);
         return () -> new IllegalStateException(message);
     }
 

@@ -19,7 +19,8 @@ public class Round  {
     }
 
     public RoundResult play() {
-        log.info("round {}: {} vs {}", roundNumber, playerOne, playerTwo);
-        return playerOne.playWith(playerTwo);
+        RoundResult roundResult = playerOne.playWith(playerTwo);
+        log.info("round {}: {} vs {} - player1: {}", roundNumber, playerOne, playerTwo, roundResult);
+        return roundResult;
     }
 }

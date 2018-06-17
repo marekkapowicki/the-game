@@ -18,17 +18,17 @@ final class GameFlow {
 
     static boolean wrongCommand() {
         log.error("wrong command");
-        return false;
-    }
-
-    static boolean error(Throwable e) {
-        log.error("some bug", e.getMessage());
-        return false;
+        return true;
     }
 
     static boolean end() {
         log.info("game is over");
         System.exit(1);
+        return true;
+    }
+
+    private static boolean error(Throwable e) {
+        log.error("some bug: {}", e.getMessage());
         return true;
     }
 

@@ -45,7 +45,7 @@ public enum RpsInput implements GameInput {
 
     public static RpsInput fromOrdinal(int ordinal) {
 
-        checkArgument(ordinal <= values().length, illegalState("wrong number").get());
+        checkArgument(ordinal <= values().length, illegalState("wrong number"));
         return values()[ordinal];
     }
 
